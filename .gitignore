@@ -24,3 +24,7 @@ yarn-error.log*
 
 # local backup
 /legacy_backup/
+
+.vercel
+
+/dist-static/
