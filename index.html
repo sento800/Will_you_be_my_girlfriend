@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Bức Thư Tình Gửi Em 💕 | Will You Be My Girlfriend?</title>
-  <meta name="description" content="Trang web tỏ tình lãng mạn dành riêng cho người con gái anh yêu nhất trên đời. Từng khoảnh khắc, từng nhịp đập trái tim này đều dành cho em.">
+  <meta name="description"
+    content="Trang web tỏ tình lãng mạn dành riêng cho người con gái anh yêu nhất trên đời. Từng khoảnh khắc, từng nhịp đập trái tim này đều dành cho em.">
   <meta name="theme-color" content="#ff758c">
 
   <!-- Open Graph -->
@@ -15,10 +17,13 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <!-- Canvas Background for Falling Sakura & Bokeh Hearts -->
   <canvas id="ambient-canvas" aria-hidden="true"></canvas>
@@ -26,7 +31,8 @@
   <!-- Floating Audio Player Bar -->
   <header class="top-nav" aria-label="Điều khiển trang">
     <div class="music-controller" id="music-controller">
-      <button class="icon-btn pulse-glow" id="music-toggle-btn" aria-label="Bật/Tắt nhạc nền" title="Bật/Tắt nhạc lãng mạn">
+      <button class="icon-btn pulse-glow" id="music-toggle-btn" aria-label="Bật/Tắt nhạc nền"
+        title="Bật/Tắt nhạc lãng mạn">
         <span class="music-icon" id="music-icon">🎵</span>
       </button>
       <span class="music-label" id="music-status">Bật giai điệu</span>
@@ -40,7 +46,8 @@
     <section class="scene-envelope active" id="scene-envelope" aria-label="Bì thư tình">
       <div class="envelope-floating-wrapper">
         <div class="envelope-glow"></div>
-        <div class="envelope-box" id="envelope-box" role="button" tabindex="0" aria-label="Bấm vào để mở bức thư tình gửi em">
+        <div class="envelope-box" id="envelope-box" role="button" tabindex="0"
+          aria-label="Bấm vào để mở bức thư tình gửi em">
           <div class="envelope-flap" id="envelope-flap"></div>
           <div class="envelope-pocket"></div>
           <div class="letter-preview" id="letter-preview">
@@ -61,11 +68,12 @@
 
     <!-- SCENE 2: THE HEARTFELT JOURNEY & LETTER -->
     <section class="scene-letter" id="scene-letter" aria-label="Nội dung bức thư tình">
-      
+
       <!-- Romantic Hero Header -->
       <div class="hero-banner">
         <span class="sparkle-tag">✨ Dành riêng cho em ✨</span>
-        <h1 class="hero-title" id="display-title">Gửi <span class="highlight-name" id="her-name-title">Em</span>, cô gái của anh</h1>
+        <h1 class="hero-title" id="display-title">Gửi <span class="highlight-name" id="her-name-title">Em</span>, cô gái
+          của anh</h1>
         <p class="hero-subtitle" id="display-subtitle">Một chút chân thành từ tận đáy trái tim anh...</p>
       </div>
 
@@ -93,7 +101,8 @@
             <span class="timer-label">Giây</span>
           </div>
         </div>
-        <p class="counter-desc" id="counter-desc">Kể từ ngày 20/09 – khoảnh khắc định mệnh đưa em bước vào cuộc đời anh 💕</p>
+        <p class="counter-desc" id="counter-desc">Kể từ ngày 20/09 – khoảnh khắc định mệnh đưa em bước vào cuộc đời anh
+          💕</p>
       </div>
 
       <!-- Handwritten / Typed Letter Section -->
@@ -125,10 +134,12 @@
         <div class="polaroid-pin">📍</div>
         <div class="polaroid-frame" id="polaroid-frame">
           <div class="polaroid-image-container">
-            <img src="assets/couple.jpg" alt="Khoảnh khắc hạnh phúc" id="couple-photo" class="polaroid-img" loading="eager">
+            <img src="assets/couple.jpg" alt="Khoảnh khắc hạnh phúc" id="couple-photo" class="polaroid-img"
+              loading="eager">
             <div class="photo-overlay"></div>
           </div>
-          <p class="polaroid-caption" id="polaroid-caption">"Thế giới có hơn 8 tỉ người, nhưng ánh mắt anh chỉ hướng về một mình em..."</p>
+          <p class="polaroid-caption" id="polaroid-caption">"Thế giới có hơn 8 tỉ người, nhưng ánh mắt anh chỉ hướng về
+            một mình em..."</p>
         </div>
       </div>
 
@@ -146,7 +157,8 @@
               <span class="reason-icon">🌸</span>
             </div>
             <h3 class="reason-title">Nụ Cười Của Em</h3>
-            <p class="reason-desc">Mỗi khi em cười, cả thế giới xung quanh anh như bừng sáng. Nụ cười ấy xua tan mọi mệt mỏi trong những ngày dài nhất.</p>
+            <p class="reason-desc">Mỗi khi em cười, cả thế giới xung quanh anh như bừng sáng. Nụ cười ấy xua tan mọi mệt
+              mỏi trong những ngày dài nhất.</p>
           </div>
 
           <div class="reason-card glass-card">
@@ -154,7 +166,8 @@
               <span class="reason-icon">✨</span>
             </div>
             <h3 class="reason-title">Sự Dịu Dàng & Ấm Áp</h3>
-            <p class="reason-desc">Cách em lắng nghe, ánh mắt em nhìn anh và những cử chỉ ân cần nhỏ bé luôn làm tim anh đập rộn ràng không ngừng.</p>
+            <p class="reason-desc">Cách em lắng nghe, ánh mắt em nhìn anh và những cử chỉ ân cần nhỏ bé luôn làm tim anh
+              đập rộn ràng không ngừng.</p>
           </div>
 
           <div class="reason-card glass-card">
@@ -162,7 +175,8 @@
               <span class="reason-icon">💌</span>
             </div>
             <h3 class="reason-title">Từng Kỷ Niệm Bên Nhau</h3>
-            <p class="reason-desc">Từ những dòng tin nhắn ngọt ngào mỗi tối, những câu chuyện vu vơ cho tới từng lần gặp gỡ, anh đều trân trọng vô cùng.</p>
+            <p class="reason-desc">Từ những dòng tin nhắn ngọt ngào mỗi tối, những câu chuyện vu vơ cho tới từng lần gặp
+              gỡ, anh đều trân trọng vô cùng.</p>
           </div>
 
           <div class="reason-card glass-card">
@@ -170,7 +184,8 @@
               <span class="reason-icon">🌙</span>
             </div>
             <h3 class="reason-title">Tương Lai Có Em</h3>
-            <p class="reason-desc">Anh không dám hứa những điều xa xôi, nhưng anh hứa trong mọi giấc mơ và dự định của anh sau này, người anh muốn nắm tay luôn là em.</p>
+            <p class="reason-desc">Anh không dám hứa những điều xa xôi, nhưng anh hứa trong mọi giấc mơ và dự định của
+              anh sau này, người anh muốn nắm tay luôn là em.</p>
           </div>
         </div>
       </section>
@@ -182,7 +197,7 @@
             <div class="huge-heart" id="huge-heart">
               <svg viewBox="0 0 32 29.6" class="heart-svg" aria-hidden="true">
                 <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
-                c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+                c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
               </svg>
             </div>
             <span class="heart-aura"></span>
@@ -190,7 +205,7 @@
 
           <h2 class="question-intro">Anh đã giữ trọn tình cảm này rất lâu...</h2>
           <h3 class="main-question" id="main-question-text">
-            <span id="her-name-question">Em</span> có đồng ý làm người yêu của <span id="his-name-question">anh</span> nhé? 💕
+            <span id="her-name-question">Em</span> đồng ý làm người yêu <span id="his-name-question">anh</span> nhé? 💕
           </h3>
           <p class="question-subtext">Cùng anh viết tiếp câu chuyện tình yêu ngọt ngào của chúng mình nha!</p>
 
@@ -218,7 +233,7 @@
   <dialog class="success-dialog" id="success-dialog" aria-label="Chứng nhận tình yêu">
     <div class="dialog-content glass-card">
       <button class="dialog-close" id="dialog-close-btn" aria-label="Đóng hộp thoại">&times;</button>
-      
+
       <div class="celebration-badge">
         <span class="badge-icon">💍</span>
         <span class="badge-text">CHÍNH THỨC HẸN HÒ</span>
@@ -230,15 +245,15 @@
       </div>
 
       <h2 class="success-title">Yeee! Cảm Ơn Em Vì Đã Đồng Ý! 🎉🥰</h2>
-      
+
       <div class="love-certificate">
         <div class="cert-border">
           <h3 class="cert-title">CHỨNG NHẬN TÌNH YÊU 💕</h3>
           <p class="cert-text">
-            Kể từ giây phút này, 
-            <strong class="cert-highlight" id="cert-her-name">Em</strong> 
-            và 
-            <strong class="cert-highlight" id="cert-his-name">Anh</strong> 
+            Kể từ giây phút này,
+            <strong class="cert-highlight" id="cert-her-name">Em</strong>
+            và
+            <strong class="cert-highlight" id="cert-his-name">Anh</strong>
             đã chính thức là của nhau!
           </p>
           <div class="cert-date-wrap">
@@ -287,7 +302,8 @@
 
         <div class="form-group">
           <label for="input-letter-content">Nội dung bức thư tình (tuỳ chọn):</label>
-          <textarea id="input-letter-content" rows="4" placeholder="Viết những lời từ trái tim của bạn gửi đến cô ấy..."></textarea>
+          <textarea id="input-letter-content" rows="4"
+            placeholder="Viết những lời từ trái tim của bạn gửi đến cô ấy..."></textarea>
         </div>
 
         <div class="form-group">
@@ -297,7 +313,8 @@
 
         <div class="form-actions">
           <button type="submit" class="btn btn-yes">Lưu và Áp Dụng Ngay 💖</button>
-          <button type="button" class="btn btn-sub-action" id="copy-custom-link-btn">🔗 Sao chép link gửi cho nàng</button>
+          <button type="button" class="btn btn-sub-action" id="copy-custom-link-btn">🔗 Sao chép link gửi cho
+            nàng</button>
         </div>
       </form>
     </div>
@@ -309,4 +326,5 @@
   <!-- Scripts -->
   <script src="script.js"></script>
 </body>
+
 </html>

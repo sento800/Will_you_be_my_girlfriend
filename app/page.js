@@ -877,7 +877,7 @@ export default function ConfessionPage() {
 
                 <h2 className="question-intro">Anh đã giữ trọn tình cảm này rất lâu...</h2>
                 <h3 className="main-question">
-                  {herName} có đồng ý làm người yêu của {hisName} nhé? 💕
+                  {herName} đồng ý làm người yêu {hisName} nhé? 💕
                 </h3>
                 <p className="question-subtext">Cùng anh viết tiếp câu chuyện tình yêu ngọt ngào của chúng mình nha!</p>
 
