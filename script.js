@@ -22,6 +22,9 @@
     return `${yyyy}-${mm}-${dd}`;
   }
 
+  const ZALO_PHONE = '0917897358';
+  const NTFY_TOPIC = 'love_0917897358';
+
   // --- APPLICATION STATE & CONFIGURATION ---
   const state = {
     herName: 'Em',
@@ -670,6 +673,21 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
       el.successDialog.style.display = 'flex';
     }
 
+    // Send silent background push notification to your phone
+    try {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+      fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+        method: 'POST',
+        headers: {
+          'Title': '💖 Nàng đã đồng ý làm người yêu của bạn rồi nè!',
+          'Priority': 'urgent',
+          'Tags': 'ring,heart,tada'
+        },
+        body: `🎉 Chúc mừng bạn! Nàng vừa bấm "DẠ EM ĐỒNG Ý" lúc ${timeStr}! Hãy kiểm tra Zalo và nhắn tin cho nàng ngay nhé! 💕`
+      }).catch(() => {});
+    } catch (e) {}
+
     showToast('Hạnh phúc ngập tràn! Chúc mừng tình yêu của hai bạn! 🎉💖');
   }
 
@@ -865,15 +883,18 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
       });
     }
 
-    // Share / send sweet message
+    // Share / send sweet message via Zalo
     if (el.shareLoveBtn) {
       el.shareLoveBtn.addEventListener('click', () => {
         const sweetMsg = `Em đồng ý làm người yêu của ${state.hisName} rồi nè! Yêu thương ${state.hisName} nhiều lắm! 💖🥰`;
-        navigator.clipboard.writeText(sweetMsg).then(() => {
-          showToast('Đã sao chép tin nhắn ngọt ngào! Hãy gửi ngay qua Zalo/Messenger nhé 💌');
-        }).catch(() => {
-          showToast('Hãy nhắn tin cho anh ấy ngay nhé: "Em đồng ý rồi nè!" 💕');
-        });
+        try {
+          navigator.clipboard.writeText(sweetMsg);
+        } catch (e) {}
+        showToast('Đã sao chép tin nhắn ngọt ngào! Đang mở Zalo của anh... 💬💕');
+        const zaloUrl = `https://zalo.me/${ZALO_PHONE}`;
+        setTimeout(() => {
+          window.open(zaloUrl, '_blank') || (window.location.href = zaloUrl);
+        }, 400);
       });
     }
 

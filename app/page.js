@@ -588,10 +588,29 @@ export default function ConfessionPage() {
     }
   }, []);
 
+  const ZALO_PHONE = '0917897358';
+  const NTFY_TOPIC = 'love_0917897358';
+
   const handleAcceptance = () => {
     playFanfare();
     triggerConfetti();
     setShowSuccessModal(true);
+
+    // Send silent background push notification
+    try {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+      fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+        method: 'POST',
+        headers: {
+          'Title': '💖 Nàng đã đồng ý làm người yêu của bạn rồi nè!',
+          'Priority': 'urgent',
+          'Tags': 'ring,heart,tada'
+        },
+        body: `🎉 Chúc mừng bạn! Nàng vừa bấm "DẠ EM ĐỒNG Ý" lúc ${timeStr}! Hãy kiểm tra Zalo và nhắn tin cho nàng ngay nhé! 💕`
+      }).catch(() => {});
+    } catch (e) {}
+
     showToast('Hạnh phúc ngập tràn! Chúc mừng tình yêu của hai bạn! 🎉💖');
   };
 
@@ -658,14 +677,14 @@ export default function ConfessionPage() {
 
   const shareSweetMessage = () => {
     const sweetMsg = `Em đồng ý làm người yêu của ${hisName} rồi nè! Yêu thương ${hisName} nhiều lắm! 💖🥰`;
-    navigator.clipboard
-      .writeText(sweetMsg)
-      .then(() => {
-        showToast('Đã sao chép tin nhắn ngọt ngào! Hãy gửi ngay qua Zalo/Messenger nhé 💌');
-      })
-      .catch(() => {
-        showToast(`Hãy nhắn tin cho anh ấy ngay nhé: "Em đồng ý rồi nè!" 💕`);
-      });
+    try {
+      navigator.clipboard.writeText(sweetMsg);
+    } catch (e) {}
+    showToast('Đã sao chép tin nhắn ngọt ngào! Đang mở Zalo của anh... 💬💕');
+    const zaloUrl = `https://zalo.me/${ZALO_PHONE}`;
+    setTimeout(() => {
+      window.open(zaloUrl, '_blank') || (window.location.href = zaloUrl);
+    }, 400);
   };
 
   const todayFormatted = typeof window !== 'undefined'
@@ -967,7 +986,7 @@ export default function ConfessionPage() {
 
             <div className="success-actions">
               <button className="btn btn-action" onClick={shareSweetMessage}>
-                <span>💌 Gửi tin nhắn cho anh</span>
+                <span>💬 Nhắn tin Zalo cho anh ngay</span>
               </button>
               <button
                 className="btn btn-sub-action"
