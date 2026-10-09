@@ -611,7 +611,18 @@ export default function ConfessionPage() {
       }).catch(() => {});
     } catch (e) {}
 
-    showToast('Hạnh phúc ngập tràn! Chúc mừng tình yêu của hai bạn! 🎉💖');
+    // Copy sweet message and auto open Zalo chat after celebration
+    const sweetMsg = `Em đồng ý làm người yêu của ${hisName} rồi nè! Yêu thương ${hisName} nhiều lắm! 💖🥰`;
+    try {
+      navigator.clipboard.writeText(sweetMsg);
+    } catch (e) {}
+
+    showToast('Hạnh phúc ngập tràn! Đang chuyển sang Zalo của anh... 💬💖');
+
+    setTimeout(() => {
+      const zaloUrl = `https://zalo.me/${ZALO_PHONE}`;
+      window.location.href = zaloUrl;
+    }, 2200);
   };
 
   // --- 10. CUSTOMIZATION SUBMIT ---

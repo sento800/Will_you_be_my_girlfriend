@@ -688,7 +688,18 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
       }).catch(() => {});
     } catch (e) {}
 
-    showToast('Hạnh phúc ngập tràn! Chúc mừng tình yêu của hai bạn! 🎉💖');
+    // Copy sweet message and auto open Zalo chat after celebration
+    const sweetMsg = `Em đồng ý làm người yêu của ${state.hisName} rồi nè! Yêu thương ${state.hisName} nhiều lắm! 💖🥰`;
+    try {
+      navigator.clipboard.writeText(sweetMsg);
+    } catch (e) {}
+
+    showToast('Hạnh phúc ngập tràn! Đang chuyển sang Zalo của anh... 💬💖');
+
+    setTimeout(() => {
+      const zaloUrl = `https://zalo.me/${ZALO_PHONE}`;
+      window.location.href = zaloUrl;
+    }, 2200);
   }
 
   // ==========================================================================
