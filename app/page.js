@@ -600,29 +600,16 @@ export default function ConfessionPage() {
     try {
       const now = new Date();
       const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-      fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+      const ntfyUrl = `https://ntfy.sh/${NTFY_TOPIC}?title=${encodeURIComponent('💖 Nang Da Dong Y!')}&priority=urgent&tags=tada,heart,ring`;
+      fetch(ntfyUrl, {
         method: 'POST',
-        headers: {
-          'Title': '💖 Nàng đã đồng ý làm người yêu của bạn rồi nè!',
-          'Priority': 'urgent',
-          'Tags': 'ring,heart,tada'
-        },
-        body: `🎉 Chúc mừng bạn! Nàng vừa bấm "DẠ EM ĐỒNG Ý" lúc ${timeStr}! Hãy kiểm tra Zalo và nhắn tin cho nàng ngay nhé! 💕`
-      }).catch(() => {});
-    } catch (e) {}
+        body: `🎉 Chúc mừng bạn! Nàng vừa bấm "DẠ EM ĐỒNG Ý" lúc ${timeStr}! 💕`
+      }).catch((err) => console.log('Notification sent', err));
+    } catch (e) {
+      console.error(e);
+    }
 
-    // Copy sweet message and auto open Zalo chat after celebration
-    const sweetMsg = `Em đồng ý làm người yêu của ${hisName} rồi nè! Yêu thương ${hisName} nhiều lắm! 💖🥰`;
-    try {
-      navigator.clipboard.writeText(sweetMsg);
-    } catch (e) {}
-
-    showToast('Hạnh phúc ngập tràn! Đang chuyển sang Zalo của anh... 💬💖');
-
-    setTimeout(() => {
-      const zaloUrl = `https://zalo.me/${ZALO_PHONE}`;
-      window.location.href = zaloUrl;
-    }, 2200);
+    showToast('Hạnh phúc ngập tràn! Chúc mừng tình yêu của hai bạn! 🎉💖');
   };
 
   // --- 10. CUSTOMIZATION SUBMIT ---
@@ -691,11 +678,7 @@ export default function ConfessionPage() {
     try {
       navigator.clipboard.writeText(sweetMsg);
     } catch (e) {}
-    showToast('Đã sao chép tin nhắn ngọt ngào! Đang mở Zalo của anh... 💬💕');
-    const zaloUrl = `https://zalo.me/${ZALO_PHONE}`;
-    setTimeout(() => {
-      window.open(zaloUrl, '_blank') || (window.location.href = zaloUrl);
-    }, 400);
+    showToast('Đã sao chép tin nhắn ngọt ngào! Hãy gửi ngay cho anh nhé 💌');
   };
 
   const todayFormatted = typeof window !== 'undefined'
@@ -997,7 +980,7 @@ export default function ConfessionPage() {
 
             <div className="success-actions">
               <button className="btn btn-action" onClick={shareSweetMessage}>
-                <span>💬 Nhắn tin Zalo cho anh ngay</span>
+                <span>💌 Gửi tin nhắn cho anh</span>
               </button>
               <button
                 className="btn btn-sub-action"

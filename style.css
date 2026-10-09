@@ -1138,13 +1138,13 @@ dialog[open] {
 }
 
 .btn-action {
-  background: linear-gradient(135deg, #0088ff 0%, #0068ff 45%, #e91e63 100%);
+  background: linear-gradient(135deg, #ff4d6d, #d81159);
   color: white;
-  padding: 11px 24px;
+  padding: 10px 22px;
   border-radius: 30px;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  box-shadow: 0 6px 20px rgba(0, 104, 255, 0.35);
+  box-shadow: 0 6px 18px rgba(216, 17, 89, 0.28);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
   border: none;
@@ -1152,7 +1152,7 @@ dialog[open] {
 
 .btn-action:hover {
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 8px 24px rgba(0, 104, 255, 0.45);
+  box-shadow: 0 8px 24px rgba(216, 17, 89, 0.38);
 }
 
 .btn-sub-action {

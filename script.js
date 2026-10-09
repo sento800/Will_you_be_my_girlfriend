@@ -677,29 +677,16 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
     try {
       const now = new Date();
       const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-      fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+      const ntfyUrl = `https://ntfy.sh/${NTFY_TOPIC}?title=${encodeURIComponent('💖 Nang Da Dong Y!')}&priority=urgent&tags=tada,heart,ring`;
+      fetch(ntfyUrl, {
         method: 'POST',
-        headers: {
-          'Title': '💖 Nàng đã đồng ý làm người yêu của bạn rồi nè!',
-          'Priority': 'urgent',
-          'Tags': 'ring,heart,tada'
-        },
-        body: `🎉 Chúc mừng bạn! Nàng vừa bấm "DẠ EM ĐỒNG Ý" lúc ${timeStr}! Hãy kiểm tra Zalo và nhắn tin cho nàng ngay nhé! 💕`
-      }).catch(() => {});
-    } catch (e) {}
+        body: `🎉 Chúc mừng bạn! Nàng vừa bấm "DẠ EM ĐỒNG Ý" lúc ${timeStr}! 💕`
+      }).catch((err) => console.log('Notification sent', err));
+    } catch (e) {
+      console.error(e);
+    }
 
-    // Copy sweet message and auto open Zalo chat after celebration
-    const sweetMsg = `Em đồng ý làm người yêu của ${state.hisName} rồi nè! Yêu thương ${state.hisName} nhiều lắm! 💖🥰`;
-    try {
-      navigator.clipboard.writeText(sweetMsg);
-    } catch (e) {}
-
-    showToast('Hạnh phúc ngập tràn! Đang chuyển sang Zalo của anh... 💬💖');
-
-    setTimeout(() => {
-      const zaloUrl = `https://zalo.me/${ZALO_PHONE}`;
-      window.location.href = zaloUrl;
-    }, 2200);
+    showToast('Hạnh phúc ngập tràn! Chúc mừng tình yêu của hai bạn! 🎉💖');
   }
 
   // ==========================================================================
@@ -894,18 +881,14 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
       });
     }
 
-    // Share / send sweet message via Zalo
+    // Share / send sweet message
     if (el.shareLoveBtn) {
       el.shareLoveBtn.addEventListener('click', () => {
         const sweetMsg = `Em đồng ý làm người yêu của ${state.hisName} rồi nè! Yêu thương ${state.hisName} nhiều lắm! 💖🥰`;
         try {
           navigator.clipboard.writeText(sweetMsg);
         } catch (e) {}
-        showToast('Đã sao chép tin nhắn ngọt ngào! Đang mở Zalo của anh... 💬💕');
-        const zaloUrl = `https://zalo.me/${ZALO_PHONE}`;
-        setTimeout(() => {
-          window.open(zaloUrl, '_blank') || (window.location.href = zaloUrl);
-        }, 400);
+        showToast('Đã sao chép tin nhắn ngọt ngào! Hãy gửi ngay cho anh nhé 💌');
       });
     }
 
