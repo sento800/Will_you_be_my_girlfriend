@@ -829,11 +829,13 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
     el.musicToggleBtn.addEventListener('click', toggleBGM);
 
     // Sound FX toggle
-    el.soundFxBtn.addEventListener('click', () => {
-      state.soundFxEnabled = !state.soundFxEnabled;
-      el.soundFxIcon.textContent = state.soundFxEnabled ? '🔔' : '🔕';
-      showToast(state.soundFxEnabled ? 'Đã bật hiệu ứng âm thanh 🔔' : 'Đã tắt hiệu ứng âm thanh 🔕');
-    });
+    if (el.soundFxBtn) {
+      el.soundFxBtn.addEventListener('click', () => {
+        state.soundFxEnabled = !state.soundFxEnabled;
+        if (el.soundFxIcon) el.soundFxIcon.textContent = state.soundFxEnabled ? '🔔' : '🔕';
+        showToast(state.soundFxEnabled ? 'Đã bật hiệu ứng âm thanh 🔔' : 'Đã tắt hiệu ứng âm thanh 🔕');
+      });
+    }
 
     // Runaway "No" button
     el.btnNo.addEventListener('mouseenter', dodgeNoButton);
@@ -844,37 +846,43 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
     el.btnYes.addEventListener('click', handleAcceptance);
 
     // Dialog close
-    el.dialogCloseBtn.addEventListener('click', () => el.successDialog.close());
+    if (el.dialogCloseBtn) el.dialogCloseBtn.addEventListener('click', () => el.successDialog.close());
 
     // Replay Fireworks
-    el.replayFireworksBtn.addEventListener('click', () => {
-      triggerCelebrationConfetti();
-      playFanfare();
-    });
+    if (el.replayFireworksBtn) {
+      el.replayFireworksBtn.addEventListener('click', () => {
+        triggerCelebrationConfetti();
+        playFanfare();
+      });
+    }
 
     // Share / send sweet message
-    el.shareLoveBtn.addEventListener('click', () => {
-      const sweetMsg = `Em đồng ý làm người yêu của ${state.hisName} rồi nè! Yêu thương ${state.hisName} nhiều lắm! 💖🥰`;
-      navigator.clipboard.writeText(sweetMsg).then(() => {
-        showToast('Đã sao chép tin nhắn ngọt ngào! Hãy gửi ngay qua Zalo/Messenger nhé 💌');
-      }).catch(() => {
-        showToast('Hãy nhắn tin cho anh ấy ngay nhé: "Em đồng ý rồi nè!" 💕');
+    if (el.shareLoveBtn) {
+      el.shareLoveBtn.addEventListener('click', () => {
+        const sweetMsg = `Em đồng ý làm người yêu của ${state.hisName} rồi nè! Yêu thương ${state.hisName} nhiều lắm! 💖🥰`;
+        navigator.clipboard.writeText(sweetMsg).then(() => {
+          showToast('Đã sao chép tin nhắn ngọt ngào! Hãy gửi ngay qua Zalo/Messenger nhé 💌');
+        }).catch(() => {
+          showToast('Hãy nhắn tin cho anh ấy ngay nhé: "Em đồng ý rồi nè!" 💕');
+        });
       });
-    });
+    }
 
     // Customization modal
-    el.customizeBtn.addEventListener('click', () => {
-      if (typeof el.customDialog.showModal === 'function') {
-        el.customDialog.showModal();
-      } else {
-        el.customDialog.setAttribute('open', '');
-      }
-    });
+    if (el.customizeBtn) {
+      el.customizeBtn.addEventListener('click', () => {
+        if (typeof el.customDialog.showModal === 'function') {
+          el.customDialog.showModal();
+        } else {
+          el.customDialog.setAttribute('open', '');
+        }
+      });
+    }
 
-    el.customCloseBtn.addEventListener('click', () => el.customDialog.close());
-    el.customizeForm.addEventListener('submit', saveCustomization);
-    el.inputFilePhoto.addEventListener('change', handlePhotoUpload);
-    el.copyCustomLinkBtn.addEventListener('click', copyCustomShareLink);
+    if (el.customCloseBtn) el.customCloseBtn.addEventListener('click', () => el.customDialog.close());
+    if (el.customizeForm) el.customizeForm.addEventListener('submit', saveCustomization);
+    if (el.inputFilePhoto) el.inputFilePhoto.addEventListener('change', handlePhotoUpload);
+    if (el.copyCustomLinkBtn) el.copyCustomLinkBtn.addEventListener('click', copyCustomShareLink);
 
     // Window Resize for Canvas
     window.addEventListener('resize', () => {

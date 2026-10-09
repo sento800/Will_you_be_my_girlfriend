@@ -677,7 +677,7 @@ export default function ConfessionPage() {
       {/* Background Ambient Canvas */}
       <canvas id="ambient-canvas" ref={canvasRef} aria-hidden="true" />
 
-      {/* Floating Audio & Navigation Bar */}
+      {/* Floating Audio Navigation Bar */}
       <header className="top-nav" aria-label="Điều khiển trang">
         <div className="music-controller" onClick={toggleBGM}>
           <button
@@ -690,28 +690,6 @@ export default function ConfessionPage() {
           <span className="music-label">
             {musicPlaying ? 'Đang phát nhạc' : 'Bật giai điệu'}
           </span>
-        </div>
-
-        <div className="action-buttons">
-          <button
-            className="icon-btn"
-            onClick={() => setShowCustomModal(true)}
-            aria-label="Tùy biến tên & lời nhắn"
-            title="Chỉnh sửa thông tin tỏ tình"
-          >
-            <span>⚙️</span>
-          </button>
-          <button
-            className="icon-btn"
-            onClick={() => {
-              setSoundFxEnabled(!soundFxEnabled);
-              showToast(!soundFxEnabled ? 'Đã bật hiệu ứng âm thanh 🔔' : 'Đã tắt hiệu ứng âm thanh 🔕');
-            }}
-            aria-label="Bật tắt âm thanh hiệu ứng"
-            title="Âm thanh hiệu ứng"
-          >
-            <span>{soundFxEnabled ? '🔔' : '🔕'}</span>
-          </button>
         </div>
       </header>
 
