@@ -2,16 +2,14 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-// Teaser quotes for the runaway "No" button
-const TEASE_QUOTES = [
-  'Ơ kìa hụt gòi nè 😜',
-  'Nút này bị kẹt gòi nhen 🥺',
-  'Hổng cho bấm nút này đâu à! 💖',
-  'Năn nỉ đó mờ, đồng ý đi mừ~ 🥰',
-  'Bấm nút màu hồng bên cạnh kìa! ✨',
-  'Anh biết em cũng thương anh mừ! 💕',
-  'Từ chối là anh dỗi thiệt đó nha 🥺',
-  'Em hết đường né rồi nhé hihi! 💍'
+// 6 stages of playful resistance before surrendering
+const STAGE_QUOTES = [
+  { btn: 'Ơ kìa hụt gòi nè 😜', hint: 'Nàng đã né thử 1/6 lần rồi nha! 💖' },
+  { btn: 'Nút này bị kẹt gòi nhen 🥺', hint: 'Nàng đã né 2/6 lần rồi nè, suy nghĩ lại điii mà~ 💕' },
+  { btn: 'Hổng cho bấm nút này đâu à! 🙈', hint: 'Nàng đã né 3/6 lần rồi đó, anh biết em cũng thương anh mừ 🥰' },
+  { btn: 'Năn nỉ đồng ý đi mừ~ 🥺', hint: 'Nàng đã né 4/6 lần rồi, tim anh hồi hộp lắm nè! 💓' },
+  { btn: 'Cơ hội cuối cùng đó nha! ✨', hint: 'Nàng đã né 5/6 lần rồi, chỉ còn đúng 1 lần né duy nhất nữa thôi nha! 😱' },
+  { btn: 'Thôi chịu thua, đồng ý nè! 🥰', hint: 'Hết trọn 6 lượt né rồi nha! Giờ em chỉ có thể làm người yêu của anh thôi 💍💕' }
 ];
 
 // Default meeting date: September 20th
@@ -529,29 +527,40 @@ export default function ConfessionPage() {
     }, 850);
   };
 
-  // --- 8. RUNAWAY NO BUTTON ---
+  // --- 8. RUNAWAY NO BUTTON (EXACTLY 6 TIMES) ---
   const handleDodgeNo = (e) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
+
+    if (runawayCount >= 6) {
+      handleAcceptance();
+      return;
+    }
+
     const nextCount = runawayCount + 1;
     setRunawayCount(nextCount);
     playDodgePop();
 
-    const quoteIdx = (nextCount - 1) % TEASE_QUOTES.length;
-    setNoBtnText(TEASE_QUOTES[quoteIdx]);
-    setPlayfulHint(`Nàng đã né thử ${nextCount} lần rồi đó nha, bấm Đồng Ý đi thuii 💕`);
-    setYesScale((prev) => Math.min(1.45, 1 + nextCount * 0.05));
+    const stage = STAGE_QUOTES[nextCount - 1];
+    setNoBtnText(stage.btn);
+    setPlayfulHint(stage.hint);
+    setYesScale((prev) => Math.min(1.48, 1 + nextCount * 0.07));
 
-    // Jump playfully within the confession card around the Yes button
-    setNoButtonOffset((prev) => {
-      const currentX = prev ? prev.x : 0;
-      const dirX = currentX >= 0 ? -1 : 1;
-      const jumpX = dirX * (Math.floor(Math.random() * 50) + 90);
-      const jumpY = (Math.random() - 0.5) * 90;
-      return { x: jumpX, y: jumpY };
-    });
+    if (nextCount < 6) {
+      // Jump playfully within the confession card around the Yes button
+      setNoButtonOffset((prev) => {
+        const currentX = prev ? prev.x : 0;
+        const dirX = currentX >= 0 ? -1 : 1;
+        const jumpX = dirX * (Math.floor(Math.random() * 50) + 90);
+        const jumpY = (Math.random() - 0.5) * 90;
+        return { x: jumpX, y: jumpY };
+      });
+    } else {
+      // Reached 6th time: stop dodging, return to center
+      setNoButtonOffset({ x: 0, y: 0 });
+    }
   };
 
   // --- 9. CELEBRATION CONFETTI & ACCEPTANCE ---
@@ -907,7 +916,7 @@ export default function ConfessionPage() {
 
                   <button
                     type="button"
-                    className="btn btn-no"
+                    className={`btn ${runawayCount >= 6 ? 'btn-yes pulse-button' : 'btn-no'}`}
                     style={{
                       transform: noButtonOffset
                         ? `translate(${noButtonOffset.x}px, ${noButtonOffset.y}px)`
@@ -916,7 +925,7 @@ export default function ConfessionPage() {
                       position: 'relative',
                       zIndex: 10
                     }}
-                    onMouseEnter={handleDodgeNo}
+                    onMouseEnter={runawayCount < 6 ? handleDodgeNo : undefined}
                     onTouchStart={handleDodgeNo}
                     onClick={handleDodgeNo}
                   >

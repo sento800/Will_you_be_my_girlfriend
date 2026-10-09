@@ -39,16 +39,14 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
     envelopeOpened: false
   };
 
-  // Playful teaser texts for the runaway "No" button
-  const teaseQuotes = [
-    'Ơ kìa hụt gòi nè 😜',
-    'Nút này bị kẹt gòi nhen 🥺',
-    'Hổng cho bấm nút này đâu à! 💖',
-    'Năn nỉ đó mờ, đồng ý đi mừ~ 🥰',
-    'Bấm nút màu hồng bên cạnh kìa! ✨',
-    'Anh biết em cũng thương anh mừ! 💕',
-    'Từ chối là anh dỗi thiệt đó nha 🥺',
-    'Em hết đường né rồi nhé hihi! 💍'
+  // 6 stages of playful resistance before surrendering
+  const stageQuotes = [
+    { btn: 'Ơ kìa hụt gòi nè 😜', hint: 'Nàng đã né thử 1/6 lần rồi nha! 💖' },
+    { btn: 'Nút này bị kẹt gòi nhen 🥺', hint: 'Nàng đã né 2/6 lần rồi nè, suy nghĩ lại điii mà~ 💕' },
+    { btn: 'Hổng cho bấm nút này đâu à! 🙈', hint: 'Nàng đã né 3/6 lần rồi đó, anh biết em cũng thương anh mừ 🥰' },
+    { btn: 'Năn nỉ đồng ý đi mừ~ 🥺', hint: 'Nàng đã né 4/6 lần rồi, tim anh hồi hộp lắm nè! 💓' },
+    { btn: 'Cơ hội cuối cùng đó nha! ✨', hint: 'Nàng đã né 5/6 lần rồi, chỉ còn đúng 1 lần né duy nhất nữa thôi nha! 😱' },
+    { btn: 'Thôi chịu thua, đồng ý nè! 🥰', hint: 'Hết trọn 6 lượt né rồi nha! Giờ em chỉ có thể làm người yêu của anh thôi 💍💕' }
   ];
 
   // DOM Elements Cache
@@ -616,6 +614,11 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
       e.stopPropagation();
     }
 
+    if (state.runawayCount >= 6) {
+      handleAcceptance();
+      return;
+    }
+
     state.runawayCount++;
     playDodgePop();
 
@@ -623,26 +626,31 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
     const rect = el.btnNo.getBoundingClientRect();
     spawnClickHeart(rect.left + rect.width / 2, rect.top + rect.height / 2);
 
-    // Change button text to playful teasing quotes
-    const quoteIndex = (state.runawayCount - 1) % teaseQuotes.length;
-    el.noBtnText.textContent = teaseQuotes[quoteIndex];
-    el.playfulHint.textContent = `Nàng đã né thử ${state.runawayCount} lần rồi đó nha, bấm Đồng Ý đi thuii 💕`;
+    const stage = stageQuotes[state.runawayCount - 1];
+    el.noBtnText.textContent = stage.btn;
+    el.playfulHint.textContent = stage.hint;
 
-    // Make the YES button grow slightly bigger to tempt her!
-    const newScale = Math.min(1.4, 1 + state.runawayCount * 0.05);
+    const newScale = Math.min(1.48, 1 + state.runawayCount * 0.07);
     el.btnYes.style.transform = `scale(${newScale})`;
 
-    // Calculate a bouncy dodge offset that stays inside the card right next to Yes
-    const currentX = state.noOffsetX || 0;
-    const dirX = currentX >= 0 ? -1 : 1;
-    const jumpX = dirX * (Math.floor(Math.random() * 50) + 90);
-    const jumpY = (Math.random() - 0.5) * 90;
-    state.noOffsetX = jumpX;
+    if (state.runawayCount < 6) {
+      // Calculate a bouncy dodge offset that stays inside the card right next to Yes
+      const currentX = state.noOffsetX || 0;
+      const dirX = currentX >= 0 ? -1 : 1;
+      const jumpX = dirX * (Math.floor(Math.random() * 50) + 90);
+      const jumpY = (Math.random() - 0.5) * 90;
+      state.noOffsetX = jumpX;
 
-    el.btnNo.style.position = 'relative';
-    el.btnNo.style.zIndex = '10';
-    el.btnNo.style.transition = 'transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease';
-    el.btnNo.style.transform = `translate(${jumpX}px, ${jumpY}px)`;
+      el.btnNo.style.position = 'relative';
+      el.btnNo.style.zIndex = '10';
+      el.btnNo.style.transition = 'transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease';
+      el.btnNo.style.transform = `translate(${jumpX}px, ${jumpY}px)`;
+    } else {
+      // 6th time: stop dodging, return to center and surrender
+      el.btnNo.style.transform = 'translate(0, 0)';
+      el.btnNo.className = 'btn btn-yes pulse-button';
+      el.btnNo.removeEventListener('mouseenter', dodgeNoButton);
+    }
   }
 
   // ==========================================================================
