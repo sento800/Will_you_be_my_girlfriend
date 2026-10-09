@@ -665,11 +665,9 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
     const formattedDate = `Ngày ${today.getDate()} tháng ${today.getMonth() + 1} năm ${today.getFullYear()}`;
     el.certDateVal.textContent = formattedDate;
 
-    // Show dialog
-    if (typeof el.successDialog.showModal === 'function') {
-      el.successDialog.showModal();
-    } else {
-      el.successDialog.setAttribute('open', '');
+    // Show popup overlay directly
+    if (el.successDialog) {
+      el.successDialog.style.display = 'flex';
     }
 
     showToast('Hạnh phúc ngập tràn! Chúc mừng tình yêu của hai bạn! 🎉💖');
@@ -846,7 +844,18 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
     el.btnYes.addEventListener('click', handleAcceptance);
 
     // Dialog close
-    if (el.dialogCloseBtn) el.dialogCloseBtn.addEventListener('click', () => el.successDialog.close());
+    if (el.dialogCloseBtn) {
+      el.dialogCloseBtn.addEventListener('click', () => {
+        if (el.successDialog) el.successDialog.style.display = 'none';
+      });
+    }
+    if (el.successDialog) {
+      el.successDialog.addEventListener('click', (e) => {
+        if (e.target === el.successDialog) {
+          el.successDialog.style.display = 'none';
+        }
+      });
+    }
 
     // Replay Fireworks
     if (el.replayFireworksBtn) {

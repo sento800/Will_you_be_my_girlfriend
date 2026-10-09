@@ -918,9 +918,14 @@ export default function ConfessionPage() {
         )}
       </main>
 
-      {/* SCENE 4: SUCCESS CERTIFICATE DIALOG */}
+      {/* SCENE 4: SUCCESS CERTIFICATE POPUP OVERLAY */}
       {showSuccessModal && (
-        <dialog open className="success-dialog" style={{ display: 'block' }}>
+        <div
+          className="modal-overlay"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowSuccessModal(false);
+          }}
+        >
           <div className="dialog-content glass-card">
             <button
               className="dialog-close"
@@ -975,7 +980,7 @@ export default function ConfessionPage() {
               </button>
             </div>
           </div>
-        </dialog>
+        </div>
       )}
 
       {/* CUSTOMIZE SETTINGS DIALOG */}

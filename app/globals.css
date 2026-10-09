@@ -915,6 +915,49 @@ body {
    SCENE 4: SUCCESS MODAL / LOVE CERTIFICATE
    ========================================================================== */
 
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(40, 10, 20, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  padding: 16px;
+  animation: backdropFade 0.35s ease forwards;
+}
+
+@keyframes backdropFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-overlay .dialog-content {
+  position: relative;
+  background: #ffffff;
+  padding: 24px 20px;
+  text-align: center;
+  border: 2px solid #ffb3c1;
+  box-shadow: 0 25px 60px rgba(216, 17, 89, 0.35);
+  border-radius: 28px;
+  max-height: 90vh;
+  width: 100%;
+  max-width: 500px;
+  overflow-y: auto;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  animation: modalPopUp 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes modalPopUp {
+  0% { transform: scale(0.65) translateY(40px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
 dialog {
   border: none;
   background: transparent;
@@ -930,7 +973,8 @@ dialog {
 
 dialog::-webkit-scrollbar,
 .dialog-content::-webkit-scrollbar,
-.custom-dialog .dialog-content::-webkit-scrollbar {
+.custom-dialog .dialog-content::-webkit-scrollbar,
+.modal-overlay .dialog-content::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
   height: 0 !important;
@@ -943,18 +987,8 @@ dialog::backdrop {
   animation: backdropFade 0.4s ease forwards;
 }
 
-@keyframes backdropFade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
 dialog[open] {
-  animation: modalScaleUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-@keyframes modalScaleUp {
-  0% { transform: scale(0.7) translateY(40px); opacity: 0; }
-  100% { transform: scale(1) translateY(0); opacity: 1; }
+  animation: modalPopUp 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .dialog-content {
