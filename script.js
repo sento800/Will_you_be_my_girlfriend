@@ -632,20 +632,17 @@ Hôm nay, anh lấy hết can đảm viết ra những dòng này, chỉ để n
     const newScale = Math.min(1.4, 1 + state.runawayCount * 0.05);
     el.btnYes.style.transform = `scale(${newScale})`;
 
-    // Calculate a safe randomized spot inside visible viewport
-    const btnWidth = el.btnNo.offsetWidth || 160;
-    const btnHeight = el.btnNo.offsetHeight || 50;
-    const padding = 24;
+    // Calculate a bouncy dodge offset that stays inside the card right next to Yes
+    const currentX = state.noOffsetX || 0;
+    const dirX = currentX >= 0 ? -1 : 1;
+    const jumpX = dirX * (Math.floor(Math.random() * 50) + 90);
+    const jumpY = (Math.random() - 0.5) * 90;
+    state.noOffsetX = jumpX;
 
-    const maxX = window.innerWidth - btnWidth - padding;
-    const maxY = window.innerHeight - btnHeight - padding;
-
-    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
-
-    el.btnNo.classList.add('runaway');
-    el.btnNo.style.left = `${randomX}px`;
-    el.btnNo.style.top = `${randomY}px`;
+    el.btnNo.style.position = 'relative';
+    el.btnNo.style.zIndex = '10';
+    el.btnNo.style.transition = 'transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease';
+    el.btnNo.style.transform = `translate(${jumpX}px, ${jumpY}px)`;
   }
 
   // ==========================================================================

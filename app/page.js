@@ -45,7 +45,7 @@ export default function ConfessionPage() {
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [soundFxEnabled, setSoundFxEnabled] = useState(true);
   const [runawayCount, setRunawayCount] = useState(0);
-  const [noButtonPos, setNoButtonPos] = useState(null);
+  const [noButtonOffset, setNoButtonOffset] = useState(null);
   const [noBtnText, setNoBtnText] = useState('Hổng thèm đâu 🙈');
   const [yesScale, setYesScale] = useState(1);
   const [playfulHint, setPlayfulHint] = useState('Thử bấm nút bên phải xem có bấm được hông nà 😜');
@@ -542,17 +542,16 @@ export default function ConfessionPage() {
     const quoteIdx = (nextCount - 1) % TEASE_QUOTES.length;
     setNoBtnText(TEASE_QUOTES[quoteIdx]);
     setPlayfulHint(`Nàng đã né thử ${nextCount} lần rồi đó nha, bấm Đồng Ý đi thuii 💕`);
-    setYesScale(Math.min(1.4, 1 + nextCount * 0.05));
+    setYesScale((prev) => Math.min(1.45, 1 + nextCount * 0.05));
 
-    const btnWidth = 160;
-    const btnHeight = 50;
-    const padding = 24;
-    const maxX = window.innerWidth - btnWidth - padding;
-    const maxY = window.innerHeight - btnHeight - padding;
-    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
-
-    setNoButtonPos({ x: randomX, y: randomY });
+    // Jump playfully within the confession card around the Yes button
+    setNoButtonOffset((prev) => {
+      const currentX = prev ? prev.x : 0;
+      const dirX = currentX >= 0 ? -1 : 1;
+      const jumpX = dirX * (Math.floor(Math.random() * 50) + 90);
+      const jumpY = (Math.random() - 0.5) * 90;
+      return { x: jumpX, y: jumpY };
+    });
   };
 
   // --- 9. CELEBRATION CONFETTI & ACCEPTANCE ---
@@ -908,12 +907,15 @@ export default function ConfessionPage() {
 
                   <button
                     type="button"
-                    className={`btn btn-no ${noButtonPos ? 'runaway' : ''}`}
-                    style={
-                      noButtonPos
-                        ? { position: 'fixed', left: `${noButtonPos.x}px`, top: `${noButtonPos.y}px` }
-                        : {}
-                    }
+                    className="btn btn-no"
+                    style={{
+                      transform: noButtonOffset
+                        ? `translate(${noButtonOffset.x}px, ${noButtonOffset.y}px)`
+                        : 'translate(0, 0)',
+                      transition: 'transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease',
+                      position: 'relative',
+                      zIndex: 10
+                    }}
                     onMouseEnter={handleDodgeNo}
                     onTouchStart={handleDodgeNo}
                     onClick={handleDodgeNo}
